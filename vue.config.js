@@ -5,4 +5,11 @@ module.exports = {
   outputDir: process.env.NODE_ENV === 'production'? 'dist': 'devDist',
   // 关闭语法的自动检测
   lintOnSave: false,
+  css: {
+    loaderOptions: {
+        scss: {
+          prependData: `@import "./src/styles/main.scss";`
+        },     
+    }
+  }
 }

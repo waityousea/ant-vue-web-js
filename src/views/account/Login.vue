@@ -1,14 +1,55 @@
 <template>
-  <div>
-    <h1>登录</h1>
-    <a-button type="primary">Primary</a-button>
-    <a-button>Default</a-button>
-    <a-button type="dashed">Dashed</a-button>
-    <a-button type="danger">Danger</a-button>
-    <a-config-provider :auto-insert-space-in-button="false">
-      <a-button type="primary">按钮</a-button>
-    </a-config-provider>
-    <a-button type="primary">按钮</a-button>
-    <a-button type="link">Link</a-button>
+  <div class="account">
+    <div class="form-wrap">
+      <a-form
+        name="custom-validation"
+        ref="ruleForm"
+      >
+        <a-form-item>
+          <label>用户名</label>
+          <a-input type="text" autocomplete="off" />
+        </a-form-item>
+
+        <a-form-item>
+          <label>密码</label>
+          <a-input type="password" utocomplete="off" />
+        </a-form-item>
+        <a-form-item>
+          <Captcha />
+          <!-- <-Captcha></Captcha> -->
+        </a-form-item>
+        <a-form-item>
+          <a-button type="primary" html-type="submit" block>
+            登录
+          </a-button>
+        </a-form-item>
+      </a-form>
+      <div class="text-center fs-12">
+        <a class="color-white">忘记密码{{layout.labelCol}}</a> | 
+        <a class="color-white">注册</a>
+      </div>
+    </div>
   </div>
 </template>
+<script>
+import { onMounted, reactive, toRefs } from "vue"
+import Captcha from "@/components/Captcha";
+export default {
+  name: "Login",
+  components: { Captcha },
+  setup(props){
+    const formConfig = reactive({
+      layout: {
+        labelCol: { span: 4 },
+        wrapperCol: { span: 14 },
+      }
+    })
+    const data=toRefs(formConfig)
+    onMounted(()=>{})
+    return { ...data };
+  }
+}
+</script>
+<style lang="scss">
+@import "./style.scss";
+</style>
