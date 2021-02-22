@@ -27,7 +27,13 @@
           <label>验证码</label>
           <a-row :gutter=5>
             <a-col :span="8"><a-input v-model:value="account_form.code" maxlength="6" type="text" autocomplete="off" /></a-col>
-            <a-col :span="8"><a-button  type="primary" block>获取验证码</a-button></a-col>
+            <a-col :span="8">
+              <a-button  type="primary" 
+                          block 
+                          @click="getCode"
+                          :disabled="button_disabled" 
+                          :loading="button_loading">{{ button_text }}</a-button>
+            </a-col>
           </a-row>
         </a-form-item> 
         
@@ -36,13 +42,14 @@
         </a-form-item>
       </a-form>
       <div class="text-center fs-12">
-        <router-link to="/">登录</router-link>
-        <a class="color-white">注册</a>
+        <router-link to="/forget" class="color-white">忘记密码</router-link> | 
+        <router-link to="/" class="color-white">登录</router-link>
       </div>
     </div>
   </div>
 </template>
 <script>
+import {message} from 'ant-design-vue'
 import { onMounted, reactive, toRefs } from "vue"
 import {checkPhone, checkPassword as password, checkCode as code} from "@/utils/validate.js"
 export default {
@@ -104,10 +111,10 @@ export default {
         wrapperCol: { span: 14 },
       },
       account_form:{
-        username:"13676912077",
-        password:"1503@cuc",
-        passwords:"1503@cuc",
-        code:"123eee"
+        username:"",
+        password:"",
+        passwords:"",
+        code:""
       },
       rules_form:{
         username:[{ validator: checkUsername, trigger: 'blur' }],
@@ -116,16 +123,47 @@ export default {
         code:[{ validator: checkCode, trigger: 'blur' }]
       }
     })
+     const dataItem = reactive({
+      // 获取验证码按钮
+      button_text: "获取验证码",
+      button_loading: false,
+      button_disabled: false,
+      sec: 60,
+      // 定时器
+      timer: null
+    })
     const form=toRefs(formConfig)
-
+    const data=toRefs(dataItem)
     // 提交表单
     const handleFinish = (value) => {
-      console.log(value)
+      
     }
+    // 获取验证码
+    const getCode = () => {
+      // 用户名不存在的情况
+      if(!formConfig.account_form.username) {
+        message.error('用户名不能为空');
+        return false;
+      }
+      // 优先判断定时器是否存在，存在则先清除后再开启
+      dataItem.timer && clearInterval(dataItem.timer);
+      // 开启定时器
+      dataItem.timer = setInterval(() => {
+        const s = dataItem.sec--;
+        dataItem.button_text = `${s}秒`;
+        if(s <= 0) {
+          clearInterval(dataItem.timer);
+          dataItem.button_text = `重新获取`;
+        }
+      }, 1000)
+    }
+
     onMounted(()=>{})
     return { 
       ...form,
+      ...data,
       handleFinish,
+      getCode
     };
   }
 }
