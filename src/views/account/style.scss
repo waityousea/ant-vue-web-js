@@ -3,14 +3,14 @@
   height: 100vh;
   background-color: #282828;
   // // 垂直居中
-  display: flex;
-  align-items: center;
+  // display: flex;
+  // align-items: center;
   // // 水平居中
-  justify-content: center;
+  // justify-content: center;
   .form-wrap{
     width: 284px;
     margin: auto;
-    // padding-top: 300px;
+    padding-top: 100px;
     color: #fff;
     
   }
@@ -19,9 +19,7 @@
     font-size: 14px;
     color:#fff;
   }
-  .ant-form-item-control{
-    width:250px;
-  }
+  
 }
 // color
 .color-white{
@@ -33,6 +31,6 @@
 }
 // text-align
 .text-center{
-  width: 250px;
+  width:195px;
   text-align: center;
 }
