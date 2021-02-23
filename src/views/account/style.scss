@@ -1,0 +1,36 @@
+.account{
+  width: 100vw;
+  height: 100vh;
+  background-color: #282828;
+  // // 垂直居中
+  // display: flex;
+  // align-items: center;
+  // // 水平居中
+  // justify-content: center;
+  .form-wrap{
+    width: 284px;
+    margin: auto;
+    padding-top: 100px;
+    color: #fff;
+    
+  }
+  label{
+    display: block;
+    font-size: 14px;
+    color:#fff;
+  }
+  
+}
+// color
+.color-white{
+  color:white;
+}
+// .font-size
+.fs-12{
+  font-size: 12px;
+}
+// text-align
+.text-center{
+  width:195px;
+  text-align: center;
+}
